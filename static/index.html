@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>BiasoMeter | Главная</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="icon" href="img/favicon/favicon.ico">
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+	<header class="">
+		<div class="head-line d-none d-md-block">
+			<div class="container">
+				<p>
+					<i class="far fa-calendar"></i>
+					<span id="date"></span>
+				</p>
+				<a href="/location/">
+					<i class="fas fa-map-marker-alt"></i>
+					<span id="cityHead"></span>
+				</a>
+			</div>
+		</div>
+		<nav>
+			<div class="container">
+				<div class="logo">
+					<a href="/">
+						<h1>
+							<span class="blue">
+								<i class="fas fa-chart-line"></i>
+							</span> BiasoMeter</h1>
+					</a>
+				</div>
+				<ul class="d-none d-md-block">
+					<li>
+						<a class="active" href="/">ГЛАВНАЯ</a>
+					</li>
+					<li>
+						<a href="/events/">СОБЫТИЯ МИРА</a>
+					</li>
+					<li>
+						<a href="/rating/">МЕДИА-РЕЙТИНГ</a>
+					</li>
+				</ul>
+				<button id="menu" class="d-md-none" href="">
+					<i class="fas fa-bars"></i>
+				</button>
+			</div>
+		</nav>
+		<div class="line">
+
+		</div>
+	</header>
+	<div class="menu d-md-none">
+		<a class="loc" href="/location/">
+			<i class="fas fa-map-marker-alt"></i>
+			<span id="cityHeadMobile"></span>
+		</a>
+
+		<div class="login-menu">
+			<a class="login-button " href="/sing-in/">
+				<i class="fas fa-sign-in-alt"></i> Вход</a>
+			<a class="sign-button" href="/sign-up/">
+				<i class="fas fa-user-plus"></i> Регистрация</a>
+		</div>
+		<ul>
+			<li class="active">
+				<a href="/">ГЛАВНАЯ</a>
+			</li>
+			<li>
+				<a href="/events/">СОБЫТИЯ МИРА</a>
+			</li>
+			<li>
+				<a href="/rating/">МЕДИА-РЕЙТИНГ</a>
+			</li>
+		</ul>
+	</div>
+	<section class="content">
+		<div class="container">
+			<div class="row">
+				<div class="p-0 px-sm-3 col-md-8 col-lg-9 order-2 order-md-1">
+					<div class="row">
+						<div class="col-12">
+							<div class="about">
+								<div class="row">
+									<div class="d-none d-md-block col-md-5 p-0">
+										<div class="img" style="background-image: url('img/news4.webp')"></div>
+									</div>
+									<div class="col-12 col-md-7">
+										<div class="info">
+											<p class="category">
+												<i class="fas fa-list-alt"></i> Техника</p>
+											<h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor necessitatibus non provident modi expedita id odit,
+												sed, quod maiores enim quas a optio cupiditate quae nostrum pariatur minus magnam laborum!</p>
+											<a href="">Читать дальше</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="search">
+								<input type="search" name="" id="" class="field" placeholder="Найти">
+								<button>Поиск</button>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-0 pb-sm-3">
+						<template id="event-template">
+							<div class="col-sm-6 col-lg-4">
+								<div class="news">
+									<div class="img" style="background-image: url('img/news2.jpg')">
+										<h3></h3>
+										<a href="">
+											<span>ПОДРОБНЕЕ </span>
+											<i class="fas fa-arrow-alt-circle-right"></i>
+										</a>
+									</div>
+									<div class="desc">
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore minima explicabo ducimus. Adipisci veritatis sapiente iusto
+											itaque facilis ar
+										</p>
+									</div>
+									<div class="line">
+										<p class="category">
+											<i class="fas fa-list-alt"></i>
+											<span>Наука</span>
+										</p>
+										<p class="date">
+											<i class="far fa-calendar"></i>
+											<span>13.05.2018</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</template>
+					</div>
+					<!-- <div class="row pt-3">
+						<div class="col">
+							<button class="load-more">
+								<i class="fas fa-arrow-circle-down"></i> Показать еще</button>
+						</div>
+					</div> -->
+				</div>
+				<div class="p-0 px-sm-3 col-md-4 col-lg-3 order-1 order-md-2">
+					<div class="block login-buttons d-none d-md-block">
+						<a class="login-button " href="/sign-in/">Вход</a>
+						<a class="sign-button" href="/sign-up/">Регистрация</a>
+					</div>
+					<div class="block">
+						<div class="weather">
+							<img id="weather-img" src="img/weather/50n.png" alt="">
+							<div class="info">
+								<h2>
+									<span id="temp"></span>
+									<span>°С</span>
+								</h2>
+								<p id="weather-main"></p>
+								<p>
+									<i class="fas fa-flag"></i>
+									<span id="wind"></span> м/с &nbsp&nbsp
+									<i class="fas fa-tint"></i>
+									<span id="humidity"></span>%</p>
+							</div>
+							<div class="loader">
+								<div id="floatingBarsG">
+									<div class="blockG" id="rotateG_01"></div>
+									<div class="blockG" id="rotateG_02"></div>
+									<div class="blockG" id="rotateG_03"></div>
+									<div class="blockG" id="rotateG_04"></div>
+									<div class="blockG" id="rotateG_05"></div>
+									<div class="blockG" id="rotateG_06"></div>
+									<div class="blockG" id="rotateG_07"></div>
+									<div class="blockG" id="rotateG_08"></div>
+								</div>
+							</div>
+						</div>
+						<div class="line-weather">
+							<p id="time-weather"></p>
+							<button id="reload-weather"> Обновить
+								<i class="fas fa-sync-alt"></i>
+							</button>
+						</div>
+					</div>
+					<div class="block">
+						<h3>Курс валют</h3>
+						<div class="currency">
+							<div class="row justify-content-around">
+								<div class=" col-2 col-sm-1 col-md-2 pr-1">
+									<i class="fas fa-dollar-sign"></i>
+								</div>
+								<div class="col-5 col-sm-2 col-md-5">
+									<p class="type">Продажа</p>
+									<div class="left">
+										<span id="USD-sale"></span>
+										<i class="fas fa-arrow-up green"></i>
+									</div>
+								</div>
+								<div class="col-5 col-sm-2 col-md-5 pr-md-4">
+									<p class="type">Покупка</p>
+									<div class="right">
+										<span id="USD-buy"></span>
+										<i class="fas fa-arrow-down red"></i>
+									</div>
+
+								</div>
+								<div class=" col-2 col-sm-1 col-md-2 pr-1">
+									<i class="fas fa-euro-sign"></i>
+								</div>
+								<div class="col-5 col-sm-2 col-md-5">
+									<p class="type d-none d-sm-block d-md-none">Продажа</p>
+
+									<div class="left">
+										<span id="EUR-sale"></span>
+										<i class="fas fa-arrow-down red"></i>
+									</div>
+								</div>
+								<div class="col-5 col-sm-2 col-md-5 pr-md-4">
+									<p class="type d-none d-sm-block d-md-none">Покупка</p>
+
+									<div class="right">
+										<span id="EUR-buy"></span>
+										<i class="fas fa-arrow-down red"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="block d-none d-md-block">
+						<h3>Топ недели</h3>
+						<div class="top">
+							<div class="sidebar">
+								<ul>
+									<li>
+										<a href="">
+											<p>Шість осіб загинули через виверження вулкана</p>
+											<span>
+												<i class="fas fa-list-alt"></i> НАУКА</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
+											<span>
+												<i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
+											<span>
+												<i class="fas fa-list-alt"></i> ИТ</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<p>У Києві відбувся «Пробіг під каштанами»</p>
+											<span>
+												<i class="fas fa-list-alt"></i> ЕКОНОМИКА</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<p>Финал Лиги чемпионов в Киеве: что осталось за кулисами</p>
+											<span>
+												<i class="fas fa-list-alt"></i> СПОРТ</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="block d-none d-md-block">
+						<h3>Реклама</h3>
+						<div class="ads">
+							<img src="img/ads.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="container d-none d-md-block">
+			<div class="row">
+				<div class="col-12 col-md-4 col-lg-3">
+					<h3>Команда</h3>
+					<ul class="team">
+						<li>
+							<i class="fab fa-cloudscale"></i>
+							<span>Безверхая Елизавета</span>
+							<p>Тестировщик</p>
+						</li>
+						<li>
+							<i class="fas fa-mobile-alt"></i>
+							<span>Василенко Дмитрий</span>
+							<p>Mobile dev.</p>
+						</li>
+						<li>
+							<i class="fab fa-php"></i>
+							<span>Майорский Константин</span>
+							<p>Back-end dev.</p>
+						</li>
+					</ul>
+				</div>
+				<div class="col-12 col-md-4 col-lg-3">
+					<ul class="team team-2">
+						<li>
+							<i class="fas fa-pencil-alt"></i>
+							<span>Нгуен Тхао Ми</span>
+							<p>Дизайнер</p>
+						</li>
+						<li>
+							<i class="fab fa-js-square"></i>
+							<span>Рыбалка Владислав</span>
+							<p>Front-end dev.</p>
+						</li>
+					</ul>
+				</div>
+				<div class="col-12 col-md-4 col-lg-3 pr-0">
+					<h3>Контакты</h3>
+					<ul class="contacts">
+						<li>
+							<i class="fas fa-phone"></i> +38 050 109 38 68</li>
+						<li>
+							<i class="fas fa-map-marker-alt"></i> Харьков, Целиноградская, 36</li>
+						<li>
+							<i class="fas fa-envelope"></i> vladyslav.rybalka@nure.ua</li>
+						<li>
+							<i class="fab fa-telegram-plane"></i> @vlad_rybalka
+						</li>
+					</ul>
+				</div>
+				<div class="col-12 col-md-3 d-none d-lg-block">
+					<div class="links">
+						<div class="row">
+							<a href="#">
+								<i class="fab fa-vk"></i>
+							</a>
+							<a href="#">
+								<i class="fab fa-instagram"></i>
+							</a>
+							<a href="#">
+								<i class="fab fa-twitter"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="line">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-6">
+						<a href="/">
+							<h1>
+								<span class="blue">
+									<i class="fas fa-chart-line"></i>
+								</span> BiasoMeter</h1>
+						</a>
+					</div>
+					<div class="col-6">
+						<p class="copy">&copy; Copyright 2018, NURE, PZPI-16-8</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="/js/cookie.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/main.js"></script>
+	<script src="/js/index.loader.js"></script>
+</body>
+
+</html>
