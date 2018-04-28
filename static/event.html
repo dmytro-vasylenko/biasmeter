@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>BiasoMeter</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/img/favicon/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#true-slider").slider({
+                range: "min",
+                value: 50,
+                min: 1,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#true-value").val(ui.value);
+                }
+            });
+            $("#true-value").val($("#true-slider").slider("value"));
+            $("#bias-slider").slider({
+                range: "min",
+                value: 50,
+                min: 1,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#bias-value").val(ui.value);
+                }
+            });
+            $("#bias-value").val($("#bias-slider").slider("value"));
+        });
+    </script>
+</head>
+
+<body class="uAdmin">
+    <header class="">
+        <div class="head-line d-none d-md-block">
+            <div class="container">
+                <p>
+                    <i class="far fa-calendar"></i>
+                    <span id="date"></span>
+                </p>
+                <a href="/location.html">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="cityHead"></span>
+                </a>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="/">
+                        <h1>
+                            <span class="blue">
+                                <i class="fas fa-chart-line"></i>
+                            </span> BiasoMeter</h1>
+                    </a>
+                </div>
+                <ul class="d-none d-md-block">
+                    <li>
+                        <a href="/">ГЛАВНАЯ</a>
+                    </li>
+                    <li class="active">
+                        <a href="/events/">СОБЫТИЯ МИРА</a>
+                    </li>
+                    <li>
+                        <a href="/rating">МЕДИА-РЕЙТИНГ</a>
+                    </li>
+                </ul>
+                <button id="menu" class="d-md-none" href="">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="line">
+
+        </div>
+    </header>
+    <div class="menu d-md-none">
+        <a class="loc" href="/location.html">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="cityHeadMobile"></span>
+        </a>
+
+        <div class="login-menu">
+            <a class="login-button " href="/login.html">
+                <i class="fas fa-sign-in-alt"></i> Вход</a>
+            <a class="sign-button" href="/signin.html">
+                <i class="fas fa-user-plus"></i> Регистрация</a>
+        </div>
+        <ul>
+            <li>
+                <a href="/">ГЛАВНАЯ</a>
+            </li>
+            <li class="active">
+                <a href="/events/">СОБЫТИЯ МИРА</a>
+            </li>
+            <li>
+                <a href="/rating">МЕДИА-РЕЙТИНГ</a>
+            </li>
+        </ul>
+    </div>
+    <section class="event content">
+        <div class="container">
+            <div class="row">
+                <div class="p-0 px-sm-3 col-md-8 col-lg-9">
+                    <div class="box" id="event">
+                        <h1></h1>
+                        <p class="blue">
+                            <i class="fas fa-list-alt"></i>
+                            <span class="category"></span>
+                        </p>
+                        <div class="row">
+                            <div class="col-12">
+                                <img id="main-image" class="mr-6" alt="" style="max-height: 1000px">
+                            </div>
+                        </div>
+                        <p class="description"></p>
+                        <!-- uSocial -->
+                        <div class="social-line">
+                            <script async src="https://usocial.pro/usocial/usocial.js?v=6.1.4" data-script="usocial" charset="utf-8"></script>
+                            <div class="uSocial-Share  d-none d-md-block" data-pid="f0fec33408189076ab069f0198f5ef36" data-type="share" data-options="round,style1,default,absolute,horizontal,size32,counter-after,nomobile"
+                                data-social="telegram,vk,gPlus,ok,twi,fb"></div>
+                            <!-- /uSocial -->
+                            <p class="date">
+                                <i class="far fa-calendar"></i>
+                                <span class="date"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="box rating">
+                        <div class="row">
+                            <div class="col">
+                                <h1>Источники</h1>
+                            </div>
+                            <div class="col">
+                                <button class="add-media" data-toggle="modal" data-target="#AddMediaModal">
+                                    <i class="fas fa-plus"></i> Добавить источник</button>
+                            </div>
+                        </div>
+                        <ul class="rating-list">
+                            <template id="source-template">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-7 mob-link">
+                                            <a href="" target="_blank">
+                                                <!-- <img class="/img" src="/img/media/1.webp" .> -->
+                                                <p class="title">
+                                                </p>
+                                                <span class="name" style="color: #303030"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-8 col-lg-3 p-0">
+                                            <div class="sliders">
+                                                <div class="container-fluid">
+                                                    <div class="row truth">
+                                                        <div class="col-1">
+                                                            <i class="fas fa-check"></i>
+                                                        </div>
+                                                        <div class="col-8 col-sm-9 col-lg-8 col-xl-9">
+                                                            <div class="slider">
+                                                                <p>Правдивость:</p>
+                                                                <div class="line-slider"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 pl-0 ">
+                                                            <p class="number"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row bias">
+                                                        <div class="col-1">
+                                                            <i class="fas fa-balance-scale"></i>
+                                                        </div>
+                                                        <div class="col-8 col-sm-9 col-lg-8 col-xl-9">
+                                                            <div class="slider">
+                                                                <p>Предвзятость:</p>
+                                                                <div class="line-slider"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 pl-0">
+                                                            <p class="number"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-lg-1 p-0">
+                                            <button type="button" class="comment-button" data-target="#collapseExample">
+                                                <i class="far fa-comments"></i>
+                                                <span>Отзывы</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-2 col-lg-1 pl-0">
+                                            <button type="button" class="voice-button" data-toggle="modal" data-target="#voteModal">
+                                                <i class="fas fa-edit"></i>
+                                                <span>Оценить</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="comments">
+                                            <h3>Комментарии</h3>
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                            <template id="comment-template">
+                                <li>
+                                    <div class="row justify-content-end">
+                                        <div class="col-3 col-md-1">
+                                            <img class="" src="/img/img_avatar.png">
+                                        </div>
+                                        <div class="col-9 col-md-11 pl-0">
+                                            <p class="name"></p>
+                                            <p class="com-date">
+                                                <span class="date"></span>
+                                                <i class="fas fa-check"></i>
+                                                <span class="truth" style="color: #5897fb"></span>
+                                                <i class="fas fa-balance-scale"></i>
+                                                <span class="bias" style="color: #5897fb"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-12 col-md-11 pl-md-0">
+                                            <p class="text"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3  d-none d-md-block">
+                    <div class="box sidebar">
+                        <h3>Последние новости</h3>
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <p>Шість осіб загинули через виверження вулкана</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> НАУКА</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> ИТ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>У Києві відбувся «Пробіг під каштанами»</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> ЕКОНОМИКА</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>Финал Лиги чемпионов в Киеве: что осталось за кулисами</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> СПОРТ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
+                                    <span>
+                                        <i class="fas fa-list-alt"></i> ИТ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="AddMediaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Новый источник</h3>
+                </div>
+                <div class="modal-body add-media-modal">
+                    <label for="" class="mb-2">Заголовок:</label>
+                    <input type="text" class="title">
+                    <label for="" class="mb-2">Источник:</label>
+                    <select name="" id=""></select>
+                    <label for="" class="mb-2">Ссылка:</label>
+                    <input type="text" class="url">
+                </div>
+                <div class="modal-footer voice">
+                    <button type="button" class="save">Добавить</button>
+                    <button type="button" data-dismiss="modal">Отменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="voteModal" tabindex="-1" role="dialog" aria-labelledby="voteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Новый голос</h3>
+                </div>
+                <div class="modal-body voice">
+                    <label for="true-value" class="mb-2">Правдивость:</label>
+                    <div class="row mb-2">
+                        <div class="col-1 pr-0">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="col-10">
+                            <div id="true-slider"></div>
+                        </div>
+                        <div class="col-1 pl-0">
+                            <input type="text" id="true-value" readonly>
+                        </div>
+                    </div>
+                    <label for="bias-value" class="mb-2">Предвзятость:</label>
+                    <div class="row mb-2">
+                        <div class="col-1 pr-0">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="col-10">
+                            <div id="bias-slider"></div>
+                        </div>
+                        <div class="col-1 pl-0">
+                            <input type="text" id="bias-value" readonly>
+                        </div>
+                    </div>
+                    <label for="bias-value" class="mb-2">Комментарий:</label>
+                    <textarea></textarea>
+                </div>
+                <div class="modal-footer voice">
+                    <button type="button" class="save">Добавить</button>
+                    <button type="button" data-dismiss="modal">Отменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container d-none d-md-block">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <h3>Команда</h3>
+                    <ul class="team">
+                        <li>
+                            <i class="fab fa-cloudscale"></i>
+                            <span>Безверхая Елизавета</span>
+                            <p>Тестировщик</p>
+                        </li>
+                        <li>
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Василенко Дмитрий</span>
+                            <p>Mobile dev.</p>
+                        </li>
+                        <li>
+                            <i class="fab fa-php"></i>
+                            <span>Майорский Константин</span>
+                            <p>Back-end dev.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <ul class="team team-2">
+                        <li>
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Нгуен Тхао Ми</span>
+                            <p>Дизайнер</p>
+                        </li>
+                        <li>
+                            <i class="fab fa-js-square"></i>
+                            <span>Рыбалка Владислав</span>
+                            <p>Front-end dev.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 pr-0">
+                    <h3>Контакты</h3>
+                    <ul class="contacts">
+                        <li>
+                            <i class="fas fa-phone"></i> +38 050 109 38 68</li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i> Харьков, Целиноградская, 36</li>
+                        <li>
+                            <i class="fas fa-envelope"></i> vladyslav.rybalka@nure.ua</li>
+                        <li>
+                            <i class="fab fa-telegram-plane"></i> @vlad_rybalka
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 d-none d-lg-block">
+                    <div class="links">
+                        <div class="row">
+                            <a href="#">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-6">
+                        <a href="/">
+                            <h1>
+                                <span class="blue">
+                                    <i class="fas fa-chart-line"></i>
+                                </span> BiasoMeter</h1>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <p class="copy">&copy; Copyright 2018, NURE, PZPI-16-8</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/cookie.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        const id = window.location.pathname.split("/")[2];
+        const sourceTemplate = document.getElementById("source-template");
+        const commentTemplate = document.getElementById("comment-template");
+        const voteModal = document.getElementById('voteModal');
+
+        fetch(`/event/${id}`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token: localStorage.getItem("token") })
+        }).then(res => res.json()).then(res => {
+            if (res.isBoom) {
+                window.location = "/events";
+            }
+            const event = document.getElementById("event");
+            event.querySelector('h1').innerText = res.title;
+            event.querySelector('.description').innerText = res.description;
+            event.querySelector('.category').innerText = res.category;
+            event.querySelector('.date').innerText = res.date;
+            event.querySelector("#main-image").src = res.image;
+
+            res.sources.forEach((source, index) => {
+                const sourceNode = sourceTemplate.content.cloneNode(true);
+
+                sourceNode.querySelector(".title").innerText = source.title;
+                sourceNode.querySelector(".name").innerText = source.name;
+                sourceNode.querySelector(".truth .line-slider").style.width = `${source.truth}%`;
+                sourceNode.querySelector(".truth .number").innerText = `${source.truth}%`;
+                sourceNode.querySelector(".bias .line-slider").style.width = `${source.bias}%`;
+                sourceNode.querySelector(".bias .number").innerText = `${source.bias}%`;
+                sourceNode.querySelector("a").href = source.url;
+                sourceNode.querySelector("[data-target]").setAttribute('data-target', `collapseExample-${index}`);
+
+                sourceNode.querySelector(".comment-button").addEventListener("click", event => {
+                    const comments = event.target.closest('li').querySelector('.collapse');
+                    comments.style.display = comments.style.display === 'block' ? 'none' : "block";
+                });
+
+                if (!source.canVote) {
+                    sourceNode.querySelector('.voice-button').remove();
+                } else {
+                    sourceNode.querySelector(".voice-button").addEventListener("click", event => {
+                        voteModal.setAttribute('data-source', index);
+                    });
+
+                }
+
+                sourceNode.querySelector("#collapseExample").id = `collapseExample-${index}`;
+
+                source.comments.forEach(comment => {
+                    const commentNode = commentTemplate.content.cloneNode(true);
+
+                    commentNode.querySelector(".bias").innerText = comment.bias;
+                    commentNode.querySelector(".truth").innerText = comment.truth;
+                    commentNode.querySelector(".text").innerText = comment.text;
+                    commentNode.querySelector(".name").innerText = comment.user;
+
+                    sourceNode.querySelector(".comments ul").appendChild(commentNode);
+                });
+
+                if (!source.comments.length) {
+                    sourceNode.querySelector('.comment-button').remove();
+                }
+
+                if (!localStorage.getItem("token")) {
+                    sourceNode.querySelector('.voice-button').remove();
+                }
+
+                sourceTemplate.parentNode.appendChild(sourceNode);
+            });
+        });
+
+        voteModal.querySelector('.save').addEventListener('click', event => {
+            const truth = voteModal.querySelector('#true-value').value;
+            const bias = voteModal.querySelector('#bias-value').value;
+            const text = voteModal.querySelector('textarea').value;
+            const token = localStorage.getItem("token");
+            const sourceId = voteModal.getAttribute('data-source');
+
+            if (!text) {
+                return;
+            }
+
+            fetch('/event-rate', {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ eventId: id, truth, bias, text, token, sourceId })
+            }).then(res => res.json()).then(res => {
+                window.location.reload();
+            })
+        });
+
+        if (localStorage.getItem("type") !== "admin" && localStorage.getItem("type") !== "media") {
+            document.querySelector(".add-media").remove();
+        } else {
+            const mediaWindow = document.getElementById("AddMediaModal");
+            if (localStorage.getItem("type") === "media") {
+                const option = document.createElement('option');
+                option.innerText = localStorage.getItem("media-name");
+                mediaWindow.querySelector("select").appendChild(option);
+            } else {
+                fetch('/media-statistics').then(res => res.json()).then(medias => {
+                    medias.forEach(media => {
+                        const option = document.createElement('option');
+                        option.innerText = media.name;
+                        mediaWindow.querySelector("select").appendChild(option);
+                    });
+                });
+            }
+
+            mediaWindow.querySelector('.save').addEventListener('click', event => {
+                const name = mediaWindow.querySelector('select').value;
+                const title = mediaWindow.querySelector('.title').value;
+                const url = mediaWindow.querySelector('.url').value;
+
+                fetch('/add-source', {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ eventId: id, name, title, url })
+                }).then(() => window.location.reload());
+            });
+        }
+    </script>
+</body>
+
+</html>
