@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>BiasMeter | Вход</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/img/favicon/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <section class="login">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-md-4">
+                    <div class="box">
+                        <h1>
+                            <a href="/">
+                                <h1>
+                                    <span class="blue">
+                                        <i class="fas fa-chart-line"></i>
+                                    </span> BiasMeter</h1>
+                            </a>
+                        </h1>
+                        <form onsubmit="false" action="">
+                            <div class="loginLabel">
+                                <label class="info-label" for="email">E-mail:</label>
+                                <label class="error-label" for="email">Некоректный E-mail</label>
+                                <i class="fas fa-check"></i>
+                                <input name="email" id="email" type="email" autocomplete="off">
+                            </div>
+                            <div class="loginLabel">
+                                <label class="info-label" for="password">Пароль:</label>
+                                <label class="error-label" for="password">Неверный пароль</label>
+                                <i class="fas fa-check"></i>
+                                <input name="password" id="password" type="password">
+                            </div>
+                            <button id="button-login" type="button">Войти</button>
+                        </form>
+                        <p>У вас нет аккаунта?</p>
+                        <a href="/sign-up/">ЗАРЕГЕСТРИРОВАТЬСЯ!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/js/login.js"></script>
+    <script>
+        document.getElementById("button-login").addEventListener("click", event => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            fetch("/sign-in", {
+                method: "post", headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                }, body: JSON.stringify({ email, password })
+            }).then(res => res.json()).then(res => {
+                if (res.status !== "OK") {
+                    return alert(res.description);
+                }
+
+                localStorage.setItem("token", res.token);
+                localStorage.setItem("type", res.type);
+                localStorage.setItem("media-name", res.mediaName);
+                localStorage.setItem("email", email);
+
+                window.location = '/';
+            });
+        });
+    </script>
+</body>
+
+</html>
