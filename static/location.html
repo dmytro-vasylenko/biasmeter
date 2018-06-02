@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>BiasoMeter | Местоположение</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="img/favicon/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body class="white">
+    <header class="">
+        <div class="head-line d-none d-md-block">
+            <div class="container">
+                <p>
+                    <i class="far fa-calendar"></i>
+                    <span id="date"></span>
+                </p>
+                <a href="/location/">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="cityHead"></span>
+                </a>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="/">
+                        <h1>
+                            <span class="blue">
+                                <i class="fas fa-chart-line"></i>
+                            </span> BiasoMeter</h1>
+                    </a>
+                </div>
+                <ul class="d-none d-md-block">
+                    <li>
+                        <a href="/">ГЛАВНАЯ</a>
+                    </li>
+                    <li>
+                        <a href="/events/">СОБЫТИЯ МИРА</a>
+                    </li>
+                    <li>
+                        <a href="/rating/">МЕДИА-РЕЙТИНГ</a>
+                    </li>
+                </ul>
+                <button id="menu" class="d-md-none" href="">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="line">
+
+        </div>
+    </header>
+    <div class="menu d-md-none">
+        <ul>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+        </ul>
+    </div>
+    <section class="map">
+        <div class="container">
+            <h1>Моё местоположение</h1>
+            <p>BiasoMeter использует ваше местоположение для отображения погоды и подбора новостей поблизости.</p>
+        </div>
+    </section>
+    <section class="location-main">
+        <div class="container">
+            <div class="row pl-3 pr-3">
+                <div class="col-3 col-md-1 p-0">
+                    <label for="cities">Город</label>
+                </div>
+                <div class="col col-md-5 p-0">
+                    <input type="text" id="cities">
+                    </ul>
+                </div>
+            </div>
+            <div class="checkBox">
+                <input id="checkBox" type="checkbox">
+                <label for="checkBox">Определять местоположение автоматически</label>
+                <p>В поездках BiasoMeter будет определять город, в котором вы находитесь. Так вы увидите актуальную погоду и
+                    новости для этого региона.</p>
+            </div>
+            <button class="save">Сохранить</button>
+            <a href="/">
+                <button>Назад</button>
+            </a>
+        </div>
+    </section>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTKWFfw-vP6CYLxKQvpP775VhOChCnnAE&libraries=places"></script>
+    <script src="/js/cookie.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/location.js"></script>
+</body>
+
+</html>
