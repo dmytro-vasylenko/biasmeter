@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>BiasoMeter | Медиа-рейтинг</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/img/favicon/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        (async () => {
+            const response = await fetch('/media-statistics');
+            const medias = (await response.json()).filter(media => media.bias && media.truth);
+
+            const arrayTrue = [
+                ['Источники', 'Правдивость'],
+                ...medias.sort((a, b) => b.truth - a.truth).map(media => [media.name, media.truth])
+            ];
+            const arrayBias = [
+                ['Источники', 'Предвзятость'],
+                ...medias.sort((a, b) => b.bias - a.bias).map(media => [media.name, media.bias])
+            ];
+
+            google.charts.load('current', { packages: ['corechart', 'bar'] });
+            google.charts.setOnLoadCallback((() => showChart(arrayTrue, arrayBias)));
+        })();
+
+        function showChart(arrayTrue, arrayBias) {
+            const dataTrue = google.visualization.arrayToDataTable(arrayTrue);
+            const dataBias = google.visualization.arrayToDataTable(arrayBias);
+            drawDualX("true", 'Рейтинг источников по правдивости', 'Правдивость', dataTrue, "#2c3e6d");
+            drawDualX("bias", 'Рейтинг источников по предвзятости', 'Предвзятость', dataBias, "#a93232");
+        }
+
+        function drawDualX(type, title, hTitle, data, color) {
+            const height = data.getNumberOfRows() * 50 + 60;
+            const materialOptions = {
+                chart: {
+                    title: title
+                },
+                width: "100%",
+                height: height,
+                hAxis: {
+                    title: hTitle
+                },
+                legend: { position: 'none' },
+                colors: [color],
+                bar: { groupWidth: "95%" },
+                bars: 'horizontal'
+            };
+
+            const materialChart = new google.charts.Bar(document.getElementById(`chart-${type}`));
+            materialChart.draw(data, materialOptions);
+        }
+    </script>
+</head>
+
+<body>
+    <header class="">
+        <div class="head-line d-none d-md-block">
+            <div class="container">
+                <p>
+                    <i class="far fa-calendar"></i>
+                    <span id="date"></span>
+                </p>
+                <a href="/location.html">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="cityHead"></span>
+                </a>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="/">
+                        <h1>
+                            <span class="blue">
+                                <i class="fas fa-chart-line"></i>
+                            </span> BiasoMeter</h1>
+                    </a>
+                </div>
+                <ul class="d-none d-md-block">
+                    <li>
+                        <a href="/">ГЛАВНАЯ</a>
+                    </li>
+                    <li class="active">
+                        <a href="/events/">СОБЫТИЯ МИРА</a>
+                    </li>
+                    <li>
+                        <a class="active" href="/rating/">МЕДИА-РЕЙТИНГ</a>
+                    </li>
+                </ul>
+                <button id="menu" class="d-md-none" href="">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="line">
+
+        </div>
+    </header>
+    <div class="menu d-md-none">
+        <a class="loc" href="/location/">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="cityHeadMobile"></span>
+        </a>
+
+        <div class="login-menu">
+            <a class="login-button " href="/sing-in/">
+                <i class="fas fa-sign-in-alt"></i> Вход</a>
+            <a class="sign-button" href="/sign-up/">
+                <i class="fas fa-user-plus"></i> Регистрация</a>
+        </div>
+        <ul>
+            <li>
+                <a href="/">ГЛАВНАЯ</a>
+            </li>
+            <li>
+                <a href="/events/">СОБЫТИЯ МИРА</a>
+            </li>
+            <li class="active">
+                <a href="/rating/">МЕДИА-РЕЙТИНГ</a>
+            </li>
+        </ul>
+    </div>
+    <section class="event content">
+        <div class="container p-0 px-sm-3">
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="box media">
+                        <div id="chart-true"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box media">
+                        <div id="chart-bias"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container d-none d-md-block">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <h3>Команда</h3>
+                    <ul class="team">
+                        <li>
+                            <i class="fab fa-cloudscale"></i>
+                            <span>Безверхая Елизавета</span>
+                            <p>Тестировщик</p>
+                        </li>
+                        <li>
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Василенко Дмитрий</span>
+                            <p>Mobile dev.</p>
+                        </li>
+                        <li>
+                            <i class="fab fa-php"></i>
+                            <span>Майорский Константин</span>
+                            <p>Back-end dev.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <ul class="team team-2">
+                        <li>
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Нгуен Тхао Ми</span>
+                            <p>Дизайнер</p>
+                        </li>
+                        <li>
+                            <i class="fab fa-js-square"></i>
+                            <span>Рыбалка Владислав</span>
+                            <p>Front-end dev.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 pr-0">
+                    <h3>Контакты</h3>
+                    <ul class="contacts">
+                        <li>
+                            <i class="fas fa-phone"></i> +38 050 109 38 68</li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i> Харьков, Целиноградская, 36</li>
+                        <li>
+                            <i class="fas fa-envelope"></i> vladyslav.rybalka@nure.ua</li>
+                        <li>
+                            <i class="fab fa-telegram-plane"></i> @vlad_rybalka
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 d-none d-lg-block">
+                    <div class="links">
+                        <div class="row">
+                            <a href="#">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-6">
+                        <a href="/">
+                            <h1>
+                                <span class="blue">
+                                    <i class="fas fa-chart-line"></i>
+                                </span> BiasoMeter</h1>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <p class="copy">&copy; Copyright 2018, NURE, PZPI-16-8</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/cookie.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
