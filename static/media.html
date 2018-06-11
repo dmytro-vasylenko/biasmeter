@@ -32,8 +32,8 @@
         function showChart(arrayTrue, arrayBias) {
             const dataTrue = google.visualization.arrayToDataTable(arrayTrue);
             const dataBias = google.visualization.arrayToDataTable(arrayBias);
-            drawDualX("true", 'Рейтинг источников по правдивости', 'Правдивость', dataTrue, "#2c3e6d");
-            drawDualX("bias", 'Рейтинг источников по предвзятости', 'Предвзятость', dataBias, "#a93232");
+            drawDualX("true", 'Rating of sources by truthfulness', 'Truthfulness', dataTrue, "#2c3e6d");
+            drawDualX("bias", 'Rating of sources by bias', 'Bias', dataBias, "#a93232");
         }
 
         function drawDualX(type, title, hTitle, data, color) {
@@ -147,7 +147,7 @@
         <div class="container d-none d-md-block">
             <div class="row">
                 <div class="col-12 col-md-4 col-lg-3">
-                    <h3>Команда</h3>
+                    <h3>Team</h3>
                     <ul class="team">
                         <li>
                             <i class="fab fa-cloudscale"></i>
@@ -181,7 +181,7 @@
                     </ul>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3 pr-0">
-                    <h3>Контакты</h3>
+                    <h3>Contacts</h3>
                     <ul class="contacts">
                         <li>
                             <i class="fas fa-phone"></i> +38 050 109 38 68</li>

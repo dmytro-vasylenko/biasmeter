@@ -75,16 +75,16 @@
             <div class="row">
                 <div class="col-9">
                     <div class="box add">
-                        <h1>Новая новость</h1>
+                        <h1>Add new event</h1>
                         <form action="/add-event" method="post" id="add-event-form" encType="multipart/form-data">
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="">Заголовок</label>
-                                    <input type="text" placeholder="Заголовок" name="title">
+                                    <label for="">Title</label>
+                                    <input type="text" placeholder="Title" name="title">
                                 </div>
                                 <div class="col-4">
 
-                                    <label for="">Категория</label>
+                                    <label for="">Category</label>
                                     <select name="category">
                                         <option>Ukraine</option>
                                         <option>Syria</option>
@@ -93,19 +93,19 @@
                                         <option>Europe</option>
                                         <option>Russia</option>
                                     </select>
-                                    <label for="">Дата</label>
+                                    <label for="">Date</label>
                                     <input type="date" name="date">
                                 </div>
                                 <div class="col-8">
-                                    <label for="">Описание</label>
+                                    <label for="">Description</label>
                                     <textarea name="description"> </textarea>
-                                    <label for="">Изображения</label>
+                                    <label for="">Image</label>
                                     <input class="file" type="file" name="image">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <button>Добавить</button>
+                                    <button>Add</button>
                                 </div>
                             </div>
                         </form>
@@ -113,57 +113,19 @@
                 </div>
                 <div class="col-md-4 col-lg-3 ">
                     <div class="box sidebar">
-                        <h3>Последние новости</h3>
+                        <h3>Top events</h3>
                         <ul>
-                            <li>
-                                <a href="">
-                                    <p>Шість осіб загинули через виверження вулкана</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> НАУКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ИТ</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Києві відбувся «Пробіг під каштанами»</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ЕКОНОМИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Финал Лиги чемпионов в Киеве: что осталось за кулисами</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> СПОРТ</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ИТ</span>
-                                </a>
-                            </li>
+                            <template id="news-template">
+                                <li>
+                                    <a href="">
+                                        <p></p>
+                                        <span>
+                                            <i class="fas fa-list-alt"></i>
+                                            <span class="category"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
@@ -175,7 +137,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-3">
-                    <h3>Команда</h3>
+                    <h3>Team</h3>
                     <ul class="team">
                         <li>
                             <i class="fab fa-cloudscale"></i>
@@ -209,7 +171,7 @@
                     </ul>
                 </div>
                 <div class="col-12 col-md-3">
-                    <h3>Контакты</h3>
+                    <h3>Contacts</h3>
                     <ul class="contacts">
                         <li>
                             <i class="fas fa-phone"></i> +38 050 109 38 68</li>
@@ -261,6 +223,21 @@
     <script src="/js/app.js"></script>
     <script src="/js/main.js"></script>
     <script>
+        fetch("/events-list")
+            .then(res => res.json())
+            .then(events => {
+                const newsTemplate = document.getElementById("news-template")
+                events.forEach(event => {
+                    const newsNode = newsTemplate.content.cloneNode(true);
+
+                    newsNode.querySelector("p").innerText = event.title;
+                    newsNode.querySelector(".category").innerText = event.category;
+                    newsNode.querySelector("a").href = `/events/${event._id}`;
+
+                    newsTemplate.parentNode.appendChild(newsNode);
+                });
+            });
+
         document.querySelector("form button").addEventListener("click", event => {
             const title = document.querySelector('[name="title"]').value;
             const date = document.querySelector('[name="date"]').value;
