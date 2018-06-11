@@ -53,6 +53,8 @@ router.post("/event/:eventId", async (req, res) => {
       let biasRate = 0;
       let canVote = true;
 
+      source.comments = source.comments.filter(comment => comment);
+
       source.comments.forEach(comment => {
         truthRate += parseInt(comment.truth);
         biasRate += parseInt(comment.bias);
@@ -118,6 +120,14 @@ router.post("/add-event", async (req, res) => {
   } catch (err) {
     return res.status(500).send(err);
   }
+});
+
+router.delete("/comment", async (req, res) => {
+  const { eventId, sourceId, commentId, email, bias, truth, text } = req.body;
+
+  await Events.removeComment(eventId, sourceId, commentId, { email, bias, truth, text });
+
+  return res.json({ stauts: "OK" });
 });
 
 module.exports = router;

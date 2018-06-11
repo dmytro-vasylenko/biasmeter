@@ -451,7 +451,7 @@
             event.querySelector('.date').innerText = res.date;
             event.querySelector("#main-image").src = res.image;
 
-            res.sources.forEach((source, index) => {
+            res.sources.forEach((source, sourceIndex) => {
                 const sourceNode = sourceTemplate.content.cloneNode(true);
 
                 sourceNode.querySelector(".title").innerText = source.title;
@@ -461,7 +461,6 @@
                 sourceNode.querySelector(".bias .line-slider").style.width = `${source.bias}%`;
                 sourceNode.querySelector(".bias .number").innerText = `${source.bias}%`;
                 sourceNode.querySelector("a").href = source.url;
-                sourceNode.querySelector("[data-target]").setAttribute('data-target', `collapseExample-${index}`);
 
                 sourceNode.querySelector(".comment-button").addEventListener("click", event => {
                     const comments = event.target.closest('li').querySelector('.collapse');
@@ -472,20 +471,18 @@
                     sourceNode.querySelector('.voice-button').remove();
                 } else {
                     sourceNode.querySelector(".voice-button").addEventListener("click", event => {
-                        voteModal.setAttribute('data-source', index);
+                        voteModal.setAttribute('data-source', sourceIndex);
                     });
 
                 }
 
-                sourceNode.querySelector("#collapseExample").id = `collapseExample-${index}`;
-
-                source.comments.forEach(comment => {
+                source.comments.forEach((comment, commentIndex) => {
                     const commentNode = commentTemplate.content.cloneNode(true);
 
                     commentNode.querySelector(".bias").innerText = comment.bias;
                     commentNode.querySelector(".truth").innerText = comment.truth;
                     commentNode.querySelector(".text").innerText = comment.text;
-                    commentNode.querySelector(".name").innerText = comment.user;
+                    commentNode.querySelector(".name").innerHTML = `${comment.user} <span style="color: red; cursor: pointer" onclick="removeComment(${commentIndex}, ${sourceIndex}, '${id}')">[Remove]</span>`;
 
                     sourceNode.querySelector(".comments ul").appendChild(commentNode);
                 });
@@ -557,6 +554,25 @@
                     body: JSON.stringify({ eventId: id, name, title, url })
                 }).then(() => window.location.reload());
             });
+        }
+
+        function removeComment(commentId, sourceId, eventId) {
+            const comment = [...[...document.querySelectorAll(".rating-list > li")][sourceId].querySelectorAll(".comments li")][commentId];
+            comment.querySelector(".name span").remove();
+
+            const email = comment.querySelector(".name").innerText;
+            const bias = comment.querySelector(".bias").innerText;
+            const truth = comment.querySelector(".truth").innerText;
+            const text = comment.querySelector(".text").innerText;
+
+            fetch("/comment", {
+                method: "DELETE",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ eventId, commentId, sourceId, email, bias, truth, text })
+            }).then(() => window.location.reload()).catch(console.error);
         }
     </script>
 </body>

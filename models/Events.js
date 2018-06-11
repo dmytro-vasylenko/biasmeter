@@ -52,6 +52,17 @@ class Events {
       sources: []
     });
   }
+
+  static removeComment(eventId, sourceId, commentId, { email, bias, truth, text }) {
+    return this.events.update(
+      { _id: ObjectId(eventId) },
+      {
+        $unset: {
+          [`sources.${sourceId}.comments.${commentId}`]: commentId
+        }
+      }
+    );
+  }
 }
 
 module.exports = Events;
