@@ -66,13 +66,13 @@
                 </div>
                 <ul class="d-none d-md-block">
                     <li>
-                        <a href="/">ГЛАВНАЯ</a>
+                        <a href="/">Main</a>
                     </li>
                     <li class="active">
-                        <a href="/events/">СОБЫТИЯ МИРА</a>
+                        <a href="/events/">World events</a>
                     </li>
                     <li>
-                        <a href="/rating">МЕДИА-РЕЙТИНГ</a>
+                        <a href="/rating">Media rating</a>
                     </li>
                 </ul>
                 <button id="menu" class="d-md-none" href="">
@@ -92,19 +92,19 @@
 
         <div class="login-menu">
             <a class="login-button " href="/login.html">
-                <i class="fas fa-sign-in-alt"></i> Вход</a>
+                <i class="fas fa-sign-in-alt"></i> Sign in</a>
             <a class="sign-button" href="/signin.html">
-                <i class="fas fa-user-plus"></i> Регистрация</a>
+                <i class="fas fa-user-plus"></i> Sign up</a>
         </div>
         <ul>
             <li>
-                <a href="/">ГЛАВНАЯ</a>
+                <a href="/">Main</a>
             </li>
             <li class="active">
-                <a href="/events/">СОБЫТИЯ МИРА</a>
+                <a href="/events/">World events</a>
             </li>
             <li>
-                <a href="/rating">МЕДИА-РЕЙТИНГ</a>
+                <a href="/rating">Media rating</a>
             </li>
         </ul>
     </div>
@@ -139,11 +139,11 @@
                     <div class="box rating">
                         <div class="row">
                             <div class="col">
-                                <h1>Источники</h1>
+                                <h1>Sources</h1>
                             </div>
                             <div class="col">
                                 <button class="add-media" data-toggle="modal" data-target="#AddMediaModal">
-                                    <i class="fas fa-plus"></i> Добавить источник</button>
+                                    <i class="fas fa-plus"></i> Add source</button>
                             </div>
                         </div>
                         <ul class="rating-list">
@@ -242,55 +242,17 @@
                     <div class="box sidebar">
                         <h3>Последние новости</h3>
                         <ul>
-                            <li>
-                                <a href="">
-                                    <p>Шість осіб загинули через виверження вулкана</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> НАУКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ИТ</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Києві відбувся «Пробіг під каштанами»</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ЕКОНОМИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Финал Лиги чемпионов в Киеве: что осталось за кулисами</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> СПОРТ</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>Адвокат заявив про пограбування квартири керівника "РИА Новости Украина" Вишинського</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ПОЛИТИКА</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>У Росії захотіли будувати літаки "Руслан" під новим брендом</p>
-                                    <span>
-                                        <i class="fas fa-list-alt"></i> ИТ</span>
-                                </a>
-                            </li>
+                            <template id="news-template">
+                                <li>
+                                    <a href="">
+                                        <p></p>
+                                        <span>
+                                            <i class="fas fa-list-alt"></i>
+                                            <span class="category"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
@@ -454,7 +416,22 @@
         const id = window.location.pathname.split("/")[2];
         const sourceTemplate = document.getElementById("source-template");
         const commentTemplate = document.getElementById("comment-template");
+        const newsTemplate = document.getElementById("news-template");
         const voteModal = document.getElementById('voteModal');
+
+        fetch("/events-list")
+            .then(res => res.json())
+            .then(events =>
+                events.forEach(event => {
+                    const newsNode = newsTemplate.content.cloneNode(true);
+
+                    newsNode.querySelector("p").innerText = event.title;
+                    newsNode.querySelector(".category").innerText = event.category;
+                    newsNode.querySelector("a").href = `/events/${event._id}`;
+
+                    newsTemplate.parentNode.appendChild(newsNode);
+                })
+            );
 
         fetch(`/event/${id}`, {
             method: "POST",

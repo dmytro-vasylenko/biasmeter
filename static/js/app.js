@@ -65,6 +65,6 @@ function logout() {
 
 if (localStorage.getItem("type") === "admin") {
   const adminMenu = document.createElement("li");
-  adminMenu.innerHTML = '<a href="/add-event/">ДОБАВИТЬ СОБЫТИЕ</a>';
+  adminMenu.innerHTML = '<a href="/add-event/">Add event</a>';
   document.querySelector("ul.d-none").appendChild(adminMenu);
 }

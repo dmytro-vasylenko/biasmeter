@@ -16,4 +16,26 @@ window.onload = function() {
         eventTemplate.parentNode.appendChild(eventNode);
       })
     );
+
+  const findInput = document.querySelector(".search input");
+
+  findInput.oninput = event => {
+    const { value } = document.querySelector(".search input");
+
+    [...document.querySelectorAll(".news")].forEach(news => {
+      const title = news.querySelector("h3").innerText;
+      const description = news.querySelector(".desc p").innerText;
+      const category = news.querySelector(".category span").innerText;
+
+      if (
+        title.toLowerCase().includes(value.toLowerCase()) ||
+        description.toLowerCase().includes(value.toLowerCase()) ||
+        category.toLowerCase().includes(value.toLowerCase())
+      ) {
+        news.parentNode.style.display = "block";
+      } else {
+        news.parentNode.style.display = "none";
+      }
+    });
+  };
 };

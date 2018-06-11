@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>BiasoMeter | Медиа-рейтинг</title>
+    <title>BiasoMeter | Media rating</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,11 +17,11 @@
             const medias = (await response.json()).filter(media => media.bias && media.truth);
 
             const arrayTrue = [
-                ['Источники', 'Правдивость'],
+                ['Sources', 'Правдивость'],
                 ...medias.sort((a, b) => b.truth - a.truth).map(media => [media.name, media.truth])
             ];
             const arrayBias = [
-                ['Источники', 'Предвзятость'],
+                ['Sources', 'Предвзятость'],
                 ...medias.sort((a, b) => b.bias - a.bias).map(media => [media.name, media.bias])
             ];
 
@@ -85,13 +85,13 @@
                 </div>
                 <ul class="d-none d-md-block">
                     <li>
-                        <a href="/">ГЛАВНАЯ</a>
+                        <a href="/">Main</a>
                     </li>
                     <li class="active">
-                        <a href="/events/">СОБЫТИЯ МИРА</a>
+                        <a href="/events/">World events</a>
                     </li>
                     <li>
-                        <a class="active" href="/rating/">МЕДИА-РЕЙТИНГ</a>
+                        <a class="active" href="/rating/">Media rating</a>
                     </li>
                 </ul>
                 <button id="menu" class="d-md-none" href="">
@@ -111,19 +111,19 @@
 
         <div class="login-menu">
             <a class="login-button " href="/sing-in/">
-                <i class="fas fa-sign-in-alt"></i> Вход</a>
+                <i class="fas fa-sign-in-alt"></i> Sign in</a>
             <a class="sign-button" href="/sign-up/">
-                <i class="fas fa-user-plus"></i> Регистрация</a>
+                <i class="fas fa-user-plus"></i> Sign up</a>
         </div>
         <ul>
             <li>
-                <a href="/">ГЛАВНАЯ</a>
+                <a href="/">Main</a>
             </li>
             <li>
-                <a href="/events/">СОБЫТИЯ МИРА</a>
+                <a href="/events/">World events</a>
             </li>
             <li class="active">
-                <a href="/rating/">МЕДИА-РЕЙТИНГ</a>
+                <a href="/rating/">Media rating</a>
             </li>
         </ul>
     </div>

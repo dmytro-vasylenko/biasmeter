@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>BiasMeter | Вход</title>
+    <title>BiasMeter | Sign in</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -55,10 +55,12 @@
             const password = document.getElementById("password").value;
 
             fetch("/sign-in", {
-                method: "post", headers: {
+                method: "post",
+                headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
-                }, body: JSON.stringify({ email, password })
+                },
+                body: JSON.stringify({ email, password })
             }).then(res => res.json()).then(res => {
                 if (res.status !== "OK") {
                     return alert(res.description);
