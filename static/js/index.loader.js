@@ -4,7 +4,7 @@ window.onload = function() {
 
   fetch("/events-list")
     .then(res => res.json())
-    .then(events =>
+    .then(events => {
       events.forEach(event => {
         const eventNode = eventTemplate.content.cloneNode(true);
         const newsNode = newsTemplate.content.cloneNode(true);
@@ -22,8 +22,14 @@ window.onload = function() {
 
         eventTemplate.parentNode.appendChild(eventNode);
         newsTemplate.parentNode.appendChild(newsNode);
-      })
-    );
+      });
+      const about = document.querySelector(".about");
+      about.querySelector(".img").style.backgroundImage = `url("${events[0].image}")`;
+      about.querySelector("h2").innerTexr = events[0].title;
+      about.querySelector(".category").innerText = events[0].category;
+      about.querySelector(".description").innerText = events[0].description;
+      about.querySelector("a").href = `/events/${events[0]._id}`;
+    });
 
   const findInput = document.querySelector(".search input");
 
